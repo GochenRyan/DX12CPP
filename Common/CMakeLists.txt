@@ -1,3 +1,5 @@
+project(Common)
+
 file(GLOB_RECURSE PUBLIC_HEADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/Public/*.h"
 )
@@ -23,6 +25,3 @@ target_include_directories(Common
     PRIVATE 
         ${CMAKE_CURRENT_SOURCE_DIR}/Private
 )
-
-get_target_property(dirs Common INCLUDE_DIRECTORIES)
-message(STATUS "Common include directories: ${dirs}")

@@ -2,6 +2,9 @@
 
 using Microsoft::WRL::ComPtr;
 
+D3DApp::~D3DApp()
+{
+}
 
 void D3DApp::InitDirect3D()
 {
