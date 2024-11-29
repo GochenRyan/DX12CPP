@@ -9,3 +9,4 @@ add_definitions(-DUNICODE)
 
 add_subdirectory(Common)
 add_subdirectory(HelloDX12)
+add_subdirectory(HelloRP)

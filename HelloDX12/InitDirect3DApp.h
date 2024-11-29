@@ -1,3 +1,5 @@
+#pragma once
+
 #include "d3dApp.h"
 
 class InitDirect3DApp : public D3DApp
