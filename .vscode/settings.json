@@ -3,6 +3,7 @@
         "array": "cpp",
         "unordered_map": "cpp",
         "string": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "vector": "cpp"
     }
 }

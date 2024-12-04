@@ -36,7 +36,7 @@ private:
     virtual void OnMouseMove(WPARAM btnState, int x, int y) override;
 
     void BuildDescriptorHeaps();
-    void BuildConstantBuffer();
+    void BuildConstantBuffers();
     void BuildRootSignature();
     void BuildShadersAndInputLayout();
     void BuildBoxGeometry();
@@ -49,7 +49,7 @@ private:
     std::unique_ptr<MeshGeometry> mBoxGeo = nullptr;
 
     Microsoft::WRL::ComPtr<ID3DBlob> mvsByteCode = nullptr;
-    Microsoft::WRL::ComPtr<ID3DBlob> mpsButeCode = nullptr;
+    Microsoft::WRL::ComPtr<ID3DBlob> mpsByteCode = nullptr;
 
     std::vector<D3D12_INPUT_ELEMENT_DESC> mInputLayout;
 
@@ -59,7 +59,9 @@ private:
     DirectX::XMFLOAT4X4 mView = MathHelper::Identity4x4();
     DirectX::XMFLOAT4X4 mProj = MathHelper::Identity4x4();
 
+    // Indicates the angle measured downward from the positive Y axis
     float mTheta = 1.5f * DirectX::XM_PI;
+    // The angle between the point on the XZ plane and the positive direction of the X axis
     float mPhi = DirectX::XM_PIDIV4;
     float mRadius = 5.0f;
 
