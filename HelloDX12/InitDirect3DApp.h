@@ -6,6 +6,8 @@ class InitDirect3DApp : public D3DApp
 {
 public:
 	InitDirect3DApp(HINSTANCE hInstance);
+    InitDirect3DApp(const InitDirect3DApp& rhs) = delete;
+    InitDirect3DApp& operator=(const InitDirect3DApp& rhs) = delete;
 	~InitDirect3DApp();
 
 	virtual bool Initialize() override;
