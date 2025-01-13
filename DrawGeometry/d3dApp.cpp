@@ -25,6 +25,8 @@ D3DApp::D3DApp(HINSTANCE hInstance)
 
 D3DApp::~D3DApp()
 {
+    if (md3dDevice != nullptr)
+        FlushCommandQueue();
 }
 
 D3DApp* D3DApp::GetApp()

@@ -136,10 +136,13 @@ void GeometryApp::Draw(const GameTimer &gt)
     ThrowIfFailed(mSwapChain->Present(0, 0));
     mCurrBackBuffer = (mCurrBackBuffer + 1) % SwapChainBufferCount;
 
-    // Wait until frame commands are complete.  This waiting is inefficient and is
-    // done for simplicity.  Later we will show how to organize our rendering code
-    // so we do not have to wait per frame
-    FlushCommandQueue();
+    // Advance the fence value to mark commands up to this fence point.
+    mCurrFrameResource->Fence = ++mCurrentFence;
+
+    // Add an instruction to the command queue to set a new fence point. 
+    // Because we are on the GPU timeline, the new fence point won't be 
+    // set until the GPU finishes processing all the commands prior to this Signal().
+    mCommandQueue->Signal(mFence.Get(), mCurrentFence);
 }
 
 void GeometryApp::OnMouseDown(WPARAM btnState, int x, int y)
@@ -528,6 +531,9 @@ void GeometryApp::BuildDescriptorHeaps()
     // Need a CBV descriptor for each object for each frame resource,
     // +1 for the perPass CBV for each frame resource.
     UINT numDescriptors = (objCount+1) * gNumFrameResources;
+
+    // Save an offset to the start of the pass CBVs.  These are the last 3 descriptors.
+    mPassCbvOffset = objCount * gNumFrameResources;
 
     D3D12_DESCRIPTOR_HEAP_DESC cbvHeapDesc;
     cbvHeapDesc.NumDescriptors = numDescriptors;
