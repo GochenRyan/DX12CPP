@@ -639,8 +639,6 @@ void GeometryApp::BuildPSOs()
 void GeometryApp::DrawRenderItems(ID3D12GraphicsCommandList *cmdList, const std::vector<RenderItem *> &ritems)
 {
     UINT objCBByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(ObjectConstants));
- 
-    auto objectCB = mCurrFrameResource->ObjectCB->Resource();
 
     // For each render item...
     for(size_t i = 0; i < ritems.size(); ++i)

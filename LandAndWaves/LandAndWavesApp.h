@@ -4,6 +4,13 @@
 #include "FrameResource.h"
 #include "RenderItem.h"
 #include "UploadBuffer.h"
+#include "Wave.h"
+
+enum class RenderLayer : int
+{
+    Opaque = 0,
+    Count
+};
 
 class LandAndWavesApp : public D3DApp
 {
@@ -30,10 +37,10 @@ private:
     void UpdateMainPassCB(const GameTimer& gt);
     void UpdateWaves(const GameTimer& gt);
 
-
     void BuildRootSignature();
     void BuildShaderAndInputLayout();
     void BuildLandGeometry();
+    void BuildWavesGeometry();
     void BuildRenderItems();
     void BuildFrameResources();
     void BuildPSOs();
@@ -41,7 +48,6 @@ private:
     void DrawRenderItems(ID3D12GraphicsCommandList* cmdList, const std::vector<RenderItem*>& ritems);
 
     float GetHillsHeight(float x, float z) const;
-    DirectX::XMFLOAT3 GetHillsNormal(float x, float z) const;
 
 private:
     std::vector<std::unique_ptr<FrameResource>> mFrameResources;
@@ -58,10 +64,15 @@ private:
     Microsoft::WRL::ComPtr<ID3D12PipelineState> mPSO = nullptr;
 
     std::vector<D3D12_INPUT_ELEMENT_DESC> mInputLayout;
+
+    RenderItem* mWavesRitem = nullptr;
+
     // List of all the render items.
     std::vector<std::unique_ptr<RenderItem>> mAllRitems;
     // Render items divided by PSO.
-    std::vector<RenderItem*> mOpaqueRitems;
+    std::vector<RenderItem*> mRitemLayer[(int)RenderLayer::Count];
+
+    std::unique_ptr<Waves> mWaves;
 
     PassConstants mMainPassCB;
 
